@@ -1,0 +1,6 @@
+@layer utilities {
+
+    .container {
+        @apply mx-auto lg:max-w-[1140px] px-4;
+    }
+}

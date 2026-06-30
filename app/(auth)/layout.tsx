@@ -30,7 +30,9 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-            {children}
+            <main>
+              {children}
+            </main>
         </ThemeProvider>
       </body>
     </html>
