@@ -1,13 +1,12 @@
-import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist_Mono, Inter, Roboto } from "next/font/google"
 import type { Metadata } from "next";
-import "./globals.css"
+import "@/app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
-import Header from "@/components/header/header";
 
 const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({subsets:['latin'], variable:'--font-sans'})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -15,7 +14,7 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Budget Tracker App",
+  title: "Budget Tracker App | Sign Up",
 }
 
 export default function RootLayout({
@@ -31,8 +30,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <Header />
-          {children}
+            {children}
         </ThemeProvider>
       </body>
     </html>
