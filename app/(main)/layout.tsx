@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google"
 import type { Metadata } from "next";
-import "@/app/globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header";
