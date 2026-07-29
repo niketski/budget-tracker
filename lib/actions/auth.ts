@@ -90,3 +90,11 @@ export async function userLogin(prevState: LoginFormState, formData: FormData): 
         return errorResponse;
     }
 }
+
+export async function loginWithGoogle() {
+
+    await signIn('google', {
+        redirectTo: '/'
+    });
+    
+}

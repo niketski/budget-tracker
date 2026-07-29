@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Button } from "@/components/ui/button";
 import { useActionState } from 'react';
-import { userLogin } from "@/lib/actions/auth";
+import { userLogin, loginWithGoogle } from "@/lib/actions/auth";
 import { Spinner } from "@/components/ui/spinner";
+import Google from "@/components/icons/google";
 
 const LoginForm = () => {
     const [state, formAction, isPending] = useActionState(userLogin, {
@@ -58,6 +59,17 @@ const LoginForm = () => {
                         </Button>
                     </Field>
                 </form>
+
+                <p className="text-center my-5">Or</p>
+
+                <div>
+                    <form action={loginWithGoogle}>
+                        <Button type="submit" variant="outline" className="w-full py-3 px-3">
+                            <Google/>
+                            Login with Google
+                        </Button>
+                    </form>
+                </div>
             </CardContent>
         </Card>
     );
