@@ -19,12 +19,17 @@ const LoginForm = () => {
         success: null
     });
     
-    console.log(state);
+    console.log('client: form state', state);
 
     return ( 
         <Card>
             <CardContent className="flex flex-col gap-y-3">
                 <form action={formAction} className="flex flex-col gap-y-3">
+
+                    {(state.success !== null || state.success && false) && (<div className="bg-red-100 p-2.5 rounded-lg">
+                        <p className="text-red-500">{state.message}</p>
+                    </div>)}
+
                     <Field className="mb-4" data-invalid={!!state.errors.email}>
                         <FieldLabel htmlFor="email">Email</FieldLabel>
                         <Input 

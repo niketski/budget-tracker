@@ -1,8 +1,10 @@
 'use server'
 
-import z from "zod";
 import { LoginFormState } from "@/types/index";
 import { loginSchema } from "@/lib/validators";
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function userLogin(prevState: LoginFormState, formData: FormData): Promise<LoginFormState> {
 
@@ -19,10 +21,8 @@ export async function userLogin(prevState: LoginFormState, formData: FormData): 
         if(!formValues.success) {
 
             const errors = formValues.error.flatten().fieldErrors;
-            const testErrors = z.treeifyError(formValues.error);
 
-            console.log(testErrors);
-
+            console.log('server: field errors ', errors);
             return {
                 values: {
                     email,
@@ -33,6 +33,12 @@ export async function userLogin(prevState: LoginFormState, formData: FormData): 
                 success: false,
             }
         }
+
+        await signIn('credentials', {
+            email,
+            password,
+            redirectTo: '/'
+        });
 
         return {    
             values: {
@@ -46,6 +52,11 @@ export async function userLogin(prevState: LoginFormState, formData: FormData): 
 
     } catch(error: unknown) {
 
+        if (isRedirectError(error)) {
+
+            throw error;
+        }
+
         const errorResponse = {
             values: {
                 email: '',
@@ -56,14 +67,25 @@ export async function userLogin(prevState: LoginFormState, formData: FormData): 
             success: false,
         };
 
-        if(error instanceof Error) {
+        if(error instanceof AuthError) {
 
-            return {
-                ...errorResponse,
-                message: error.message,
+            switch(error.type) {
+                case 'CredentialsSignin':
+
+                    return {
+                        ...errorResponse,
+                        message: 'Invalid email or password.',
+                    }
+
+                default:
+                    return {
+                        ...errorResponse,
+                        message: 'An error occurred while logging in.',
+                    }
             }
+           
 
-        }
+        } 
 
         return errorResponse;
     }

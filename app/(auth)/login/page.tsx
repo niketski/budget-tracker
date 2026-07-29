@@ -1,6 +1,6 @@
 import LoginForm from "./login-form";
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
     return ( <>
         <section className="py-20 min-h-screen">
             <div className="container">
