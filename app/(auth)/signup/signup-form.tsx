@@ -11,6 +11,10 @@ const SignUpForm = () => {
             </CardHeader>
             <CardContent className="flex flex-col gap-y-3">
                 <Field className="mb-4">
+                    <FieldLabel>Name</FieldLabel>
+                    <Input placeholder="Enter your name" type="text"/>
+                </Field>
+                <Field className="mb-4">
                     <FieldLabel>Email</FieldLabel>
                     <Input placeholder="Enter your email" type="email"/>
                 </Field>
