@@ -1,8 +1,7 @@
 import z from "zod";
-import { loginSchema } from "@/lib/validators";
+import { loginSchema, signupSchema } from "@/lib/validators";
 
 // api response
-
 export type APIResponse = {
     message: string,
     success: boolean | null,
@@ -19,3 +18,5 @@ export type FormState<T> = {
 };
 
 export type LoginFormState = FormState<z.infer<typeof loginSchema>> & APIResponse;
+
+export type SignupFormState = FormState<z.infer<typeof signupSchema>> & APIResponse;
