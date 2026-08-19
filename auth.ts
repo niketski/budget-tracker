@@ -3,6 +3,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import prisma from './prisma/db';
+import { compareSync } from 'bcrypt-ts';
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -22,7 +23,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { email }
         });
 
+        // check user if exist
         if (!user) return null;
+
+        // check password if match
+        const isPasswordValid = compareSync(password, user?.password as string);
+
+        if(!isPasswordValid) return null;
 
         // NextAuth's User id is expected to be a string
         return {
