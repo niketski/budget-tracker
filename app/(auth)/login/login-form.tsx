@@ -55,7 +55,7 @@ const LoginForm = () => {
                     </Field>
                     <Field>
                         <Button type="submit">
-                            { isPending ? <><Spinner/> Loding</>  : 'Submit' }
+                            { isPending ? <><Spinner/> Loading</>  : 'Submit' }
                         </Button>
                     </Field>
                 </form>
