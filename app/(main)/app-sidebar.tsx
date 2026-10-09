@@ -16,8 +16,11 @@ import {
 import { Button } from "@/components/ui/button"
 import { User2, Plus } from "lucide-react"
 import Link from "next/link";
+import SidebarLogoutButton from "@/components/sidebar-logout-button";
 
 const AppSidebar = () => {
+
+    
     return ( 
         <Sidebar variant="floating">
             <SidebarHeader className="pt-6">
@@ -50,9 +53,7 @@ const AppSidebar = () => {
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton>
-                        <User2 /> Nico
-                        </SidebarMenuButton>
+                        <SidebarLogoutButton/>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarFooter>
