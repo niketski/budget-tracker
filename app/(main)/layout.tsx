@@ -4,8 +4,7 @@ import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header";
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import AppSidebar from "./app-sidebar";
+import Link from "next/link";
 
 const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
 
@@ -31,15 +30,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, robotoHeading.variable)}
     >
-      <body>
+      <body className="bg-primary">
         <ThemeProvider>
-          <SidebarProvider>
-            <AppSidebar/>
-            <main>
-              <SidebarTrigger/>
-              {children}
-            </main>
-          </SidebarProvider>
+          <Header/>
+          <main>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
