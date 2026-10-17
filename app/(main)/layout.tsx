@@ -30,10 +30,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, robotoHeading.variable)}
     >
-      <body className="bg-primary">
+      <body className="bg-background">
         <ThemeProvider>
           <Header/>
-          <main>
+          <main className="pb-10">
             {children}
           </main>
         </ThemeProvider>

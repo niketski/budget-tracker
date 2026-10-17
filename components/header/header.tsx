@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import appLogo from '@/public/images/app-logo.png';
+import headerLogo from '@/public/images/bt-logo-main.png';
 import { usePathname } from "next/navigation";
 
 const menuItems = [
@@ -32,12 +32,12 @@ const Header = () => {
     const pathname = usePathname();
 
     return ( 
-        <header className="bg-primary py-7">
-            <div className="max-w-285 mx-auto px-4 flex items-center justify-between">
+        <header className="bg-background py-7">
+            <div className="container flex items-center justify-between">
                 <div>
                     <Link href="/">
                         <Image
-                            src={appLogo}
+                            src={headerLogo}
                             alt="Budget Tracker App"
                             width={210}/>
                     </Link>
