@@ -1,10 +1,14 @@
 @layer components {
     
     .app-btn {
-        @apply py-2.5 lg:py-4.25! lg:px-7.5! px-3 rounded-[50px]! h-auto! font-semibold hover:bg-card! hover:text-primary! border border-transparent hover:border-primary!;
+        @apply py-2.5 lg:py-4.25! lg:px-7.5! px-6! rounded-[50px]! h-auto! font-semibold hover:bg-card! hover:text-primary! border border-transparent hover:border-primary!;
     }
 
     .app-btn.primary {
         @apply bg-primary! text-white!;
+    }
+
+    .field-input {
+        @apply border-primary! rounded-[50px]! min-w-77.5 min-h-10.25 lg:min-h-13.25 px-6! lg:px-6.25! py-4.25 text-primary placeholder:text-muted-foreground font-semibold border;
     }
 }

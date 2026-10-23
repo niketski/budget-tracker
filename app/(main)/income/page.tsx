@@ -17,18 +17,27 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react"
+import { Search, Pen, Trash } from "lucide-react"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group"
+
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription
+} from '@/components/ui/dialog'
+import AddIncomeForm from "./add-income-form";
 
 const items = [
     { label: 'Default', value: '' },
@@ -47,22 +56,39 @@ const IncomePage = () => {
                 <h1 className="text-primary mb-20">Income</h1>
 
                 <div className="flex flex-col items-start lg:flex-row gap-y-10 lg:gap-y-0 lg:items-center lg:justify-between mb-10">
-                    <Button 
-                        variant="default" 
-                        className="app-btn h-auto py-2.5 lg:py-4.25 lg:px-7.5 px-3 rounded-[50px] font-semibold hover:bg-card hover:text-primary border border-transparent hover:border-primary">
-                        <Plus width={32} height={32}/>
-                        Add Income
-                    </Button>
+                    <div>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button 
+                                    variant="default" 
+                                    className="app-btn h-auto py-2.5 lg:py-4.25 lg:px-7.5 px-3 rounded-[50px] font-semibold hover:bg-card hover:text-primary border border-transparent hover:border-primary">
+                                    <Plus width={32} height={32}/>
+                                    Add Income
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="px-5 py-10">
+                                <DialogHeader className="mb-6">
+                                    <DialogTitle className="font-bold text-primary text-2xl font-bold">Add Income</DialogTitle>
+                                    <DialogDescription>
+                                        Please add the income details.
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <AddIncomeForm/>
+                            
+                            </DialogContent>
+                        </Dialog>
+                    </div>
 
                     <div className="flex gap-x-4">
                         <Select>
-                            <SelectTrigger className="w-full min-w-46 rounded-[50px] min-h-10.25 lg:min-h-13.25 px-5 lg:px-6.25 py-4.25 text-primary font-semibold">
+                            <SelectTrigger className="w-full min-w-46 field-input">
                                 <SelectValue placeholder="Sort By" className="text-primary"/>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
                                 {items.map((item) => (
-                                    <SelectItem key={item.value} value={item.value}>
+                                    <SelectItem className="px-5 py-2.5" key={item.value} value={item.value}>
                                     {item.label}
                                     </SelectItem>
                                 ))}
@@ -70,7 +96,7 @@ const IncomePage = () => {
                             </SelectContent>
                         </Select>
 
-                        <InputGroup className="rounded-[50px] min-w-77.5 min-h-10.25 lg:min-h-13.25 px-5 lg:px-6.25 py-4.25 text-primary font-semibold border">
+                        <InputGroup className="rounded-[50px] min-w-77.5 field-input">
                             <InputGroupInput placeholder="Search..."/>
                             <InputGroupAddon align="inline-end">
                                 <Search width={24} height={24} className="text-primary"/>
@@ -88,6 +114,7 @@ const IncomePage = () => {
                                 <TableHead className="text-white w-50">Name</TableHead>
                                 <TableHead className="text-white w-50">User</TableHead>
                                 <TableHead className="text-white w-25">Date</TableHead>
+                                <TableHead className="text-white w-25"><span className="hidden">Actions</span></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -97,14 +124,29 @@ const IncomePage = () => {
                                 <TableCell>Monthly Salary</TableCell>
                                 <TableCell>John Doe</TableCell>
                                 <TableCell>10/13/2026</TableCell>
+                                <TableCell>
+                                    <Button variant="ghost" aria-label="Edit"><Pen size={16} color="#008235" /></Button>
+                                    <Button variant="ghost" aria-label="Delete"><Trash size={16} color="#008235" /></Button>
+                                </TableCell>
                             </TableRow>
                             <TableRow>
+                                <TableCell>1</TableCell>
+                                <TableCell>Php 50,000.00</TableCell>
+                                <TableCell>Monthly Salary</TableCell>
+                                <TableCell>John Doe</TableCell>
+                                <TableCell>10/13/2026</TableCell>
+                                <TableCell>
+                                    <Button variant="ghost" aria-label="Edit"><Pen size={16} color="#008235" /></Button>
+                                    <Button variant="ghost" aria-label="Delete"><Trash size={16} color="#008235" /></Button>
+                                </TableCell>
+                            </TableRow>
+                            {/* <TableRow>
                                 <TableCell>1</TableCell>
                                 <TableCell>Php 50,000.00</TableCell>
                                 <TableCell>Freelance</TableCell>
                                 <TableCell>John Doe</TableCell>
                                 <TableCell>10/13/2026</TableCell>
-                            </TableRow>
+                            </TableRow> */}
                         </TableBody>
                     </Table>
                     <div>
