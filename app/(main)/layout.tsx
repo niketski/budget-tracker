@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="bg-background">
         <ThemeProvider>
           <Header/>
-          <main className="pb-10">
+          <main className="py-10">
             {children}
           </main>
         </ThemeProvider>

@@ -17,7 +17,7 @@
     }
     
     h1 {
-        @apply md:text-[64px] font-bold;
+        @apply text-4xl md:text-[64px] font-bold;
     }
 
 }
