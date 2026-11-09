@@ -15,3 +15,15 @@ export const signupSchema = z.object({
         .regex(/[0-9]/, "Password must contain a number")
         .regex(/[^A-Za-z0-9]/, "Password must contain a special character")
 });
+
+export const addIncomeSchema = z.object({
+    name: z.string().min(1, 'Name is required.'),
+    amount: z.string().min(1, 'Amount is required.')
+        .refine(val => {
+            const num = parseFloat(val);
+
+            return num > 50;
+            
+        }, 'Amount must be at least 50.'),
+    date: z.iso.date('Please enter a valid date.'),
+});

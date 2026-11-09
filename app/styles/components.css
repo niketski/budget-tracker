@@ -9,6 +9,6 @@
     }
 
     .field-input {
-        @apply border-primary! rounded-[50px]! min-w-77.5 min-h-10.25 lg:min-h-13.25 px-6! lg:px-6.25! py-4.25 text-primary placeholder:text-muted-foreground font-semibold border;
+        @apply border-primary rounded-[50px]! min-w-77.5 min-h-10.25 lg:min-h-13.25 px-6! lg:px-6.25! py-4.25 text-primary placeholder:text-muted-foreground font-semibold border;
     }
 }

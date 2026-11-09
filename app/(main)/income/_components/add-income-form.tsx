@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from "react";
+import { format } from "date-fns";
+import { useActionState, useState } from "react";
 import {
     Field,
     FieldLabel,
@@ -10,28 +11,47 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
 import { Calendar as CalendarIcon } from "lucide-react"
+import { addIncome } from "@/lib/actions/income";
 
 const AddIncomeForm = () => {
     const [date, setDate] = useState<Date | undefined>(new Date());
+    const [state, formAction, isPending ] = useActionState(addIncome, {
+        values: {
+            name: '',
+            amount: '',
+            date: ''
+        },
+        idle: true,
+        errors: {},
+        message: '',
+        success: false
+    });
+
+    console.log(state);
 
     return ( 
         <>
-            <form>
+            <form action={formAction}>
                 <Field className="mb-3.5">
                     <FieldLabel className="hidden" htmlFor="name">Name</FieldLabel>
                     <Input
-                        className="field-input"
+                        className={`field-input ${state.errors.name ? 'border-red-500' : ''}`}
                         type="text"
                         name="name"
-                        placeholder="Enter income name"/>
+                        placeholder="Enter income name"
+                        defaultValue={state.values.name}/>
+
+                    {state.errors.name && (<p className="text-red-500">{state.errors.name[0]}</p>) }
                 </Field>
                 <Field className="mb-3.5">
                     <FieldLabel className="hidden" htmlFor="amount">Amount</FieldLabel>
                     <Input
-                        className="field-input"
+                        className={`field-input ${state.errors.amount ? 'border-red-500' : ''}`}
                         type="number"
                         name="amount"
-                        placeholder="Enter amount"/>
+                        placeholder="Enter amount"
+                        defaultValue={state.values.amount}/>
+                    {state.errors.amount && (<p className="text-red-500">{state.errors.amount[0]}</p>) }
                 </Field>
                 <Field className="mb-3.5">
                     <Popover>
@@ -49,9 +69,15 @@ const AddIncomeForm = () => {
                                 className="rounded-lg border"/>
                         </PopoverContent>
                     </Popover>
+                    <Input 
+                        type="hidden" 
+                        name="date"
+                        value={date ? format(date, "yyyy-MM-dd") : ""}/>
                 </Field>
 
-                <Button type="submit" className="app-btn">Submit</Button>
+                <Button type="submit" className="app-btn">
+                   {isPending ? 'Loading...' : 'Submit'} 
+                </Button>
             </form>
         </>
     );
