@@ -2,13 +2,22 @@
 
 import { AddIncomeSubmit } from "@/lib/types"
 import { addIncomeSchema } from "../validators";
-import { PrismaClient } from "../generated/prisma/client";
+import prisma from '@/lib/db';
+import { auth } from "@/auth";
 
 export async function addIncome(prevState: AddIncomeSubmit, formData: FormData): Promise<AddIncomeSubmit> {
 
+    const session = await auth();
+    const userId = session?.user?.id;
 
     try {
 
+        if(!userId) {
+
+            throw new Error('User is not authenticated.');
+            
+        }
+        
         const name = formData.get('name');
         const amount = formData.get('amount');
         const date = formData.get('date');
@@ -38,13 +47,20 @@ export async function addIncome(prevState: AddIncomeSubmit, formData: FormData):
                 }
             }
         
-        } else {
+        } 
 
-            console.log('success');
-
-            
-
-        }
+        await prisma.income.create({
+            data: {
+                name: name as string,
+                amount: Number(amount),
+                date: new Date(date as string),
+                user: {
+                    connect: {
+                        id: session?.user?.id as string
+                    }
+                }
+            }
+        });
 
         console.log(prevState);
 
@@ -76,6 +92,7 @@ export async function addIncome(prevState: AddIncomeSubmit, formData: FormData):
         }
 
         if(error instanceof Error) {
+            console.log(error.message);
 
             return {
                 ...errorResponse,

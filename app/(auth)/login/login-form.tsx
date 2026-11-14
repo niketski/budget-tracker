@@ -23,7 +23,7 @@ const LoginForm = () => {
     console.log('client: form state', state);
 
     return ( 
-        <Card>
+        <Card className="py-10 px-5">
             <CardContent className="flex flex-col gap-y-3">
                 <form action={formAction} className="flex flex-col gap-y-3">
 
@@ -34,6 +34,7 @@ const LoginForm = () => {
                     <Field className="mb-4" data-invalid={!!state.errors.email}>
                         <FieldLabel htmlFor="email">Email</FieldLabel>
                         <Input 
+                            className="field-input"
                             aria-invalid={!!state.errors.email}
                             placeholder="Enter your email" 
                             id="email" 
@@ -45,6 +46,7 @@ const LoginForm = () => {
                     <Field data-invalid={!!state.errors.password}>
                         <FieldLabel htmlFor="password">Password</FieldLabel>
                         <Input 
+                            className="field-input"
                             aria-invalid={!!state.errors.password}
                             placeholder="Enter your password" 
                             id="password"
@@ -54,7 +56,7 @@ const LoginForm = () => {
                         {state.errors.password && <p className="text-red-500">{state.errors.password}</p>}
                     </Field>
                     <Field>
-                        <Button type="submit">
+                        <Button className="app-btn" type="submit">
                             { isPending ? <><Spinner/> Loading</>  : 'Submit' }
                         </Button>
                     </Field>
@@ -64,7 +66,7 @@ const LoginForm = () => {
 
                 <div>
                     <form action={loginWithGoogle}>
-                        <Button type="submit" variant="outline" className="w-full py-3 px-3">
+                        <Button type="submit" variant="outline" className="w-full app-btn">
                             <Google/>
                             Login with Google
                         </Button>

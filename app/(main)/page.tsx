@@ -9,7 +9,8 @@ export default async function Page() {
   if(!session) {
     redirect('/login');
   }
-  console.log('session: ', session);
+
+  console.log('app session:', session);
 
   return (
     <>

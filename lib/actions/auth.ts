@@ -5,7 +5,7 @@ import { loginSchema, signupSchema } from "@/lib/validators";
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import prisma from '@/prisma/db';
+import prisma from '@/lib/db';
 import { genSaltSync, hashSync } from 'bcrypt-ts';
 import { Prisma } from '@/lib/generated/prisma/client';
 

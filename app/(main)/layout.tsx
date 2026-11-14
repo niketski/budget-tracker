@@ -1,10 +1,10 @@
-import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist_Mono, Inter, Roboto } from "next/font/google"
 import type { Metadata } from "next";
 import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header";
-import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 
 const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
 
@@ -36,6 +36,7 @@ export default function RootLayout({
           <main className="py-10">
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

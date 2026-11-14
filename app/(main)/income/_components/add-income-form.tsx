@@ -1,7 +1,7 @@
 'use client';
 
 import { format } from "date-fns";
-import { useActionState, useState } from "react";
+import { useActionState, useState, useEffect } from "react";
 import {
     Field,
     FieldLabel,
@@ -12,6 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { addIncome } from "@/lib/actions/income";
+import { toast } from 'sonner';
 
 const AddIncomeForm = () => {
     const [date, setDate] = useState<Date | undefined>(new Date());
@@ -27,10 +28,21 @@ const AddIncomeForm = () => {
         success: false
     });
 
-    console.log(state);
+    useEffect(() => {
+
+        if(state.success) {
+
+            toast(state.message);
+        }
+
+        console.log(state);
+
+    }, [state.success, state.message]);
 
     return ( 
         <>
+            {!state.success && (<p>{state.message}</p>)}
+            
             <form action={formAction}>
                 <Field className="mb-3.5">
                     <FieldLabel className="hidden" htmlFor="name">Name</FieldLabel>
