@@ -1,7 +1,7 @@
 @layer components {
     
     .app-btn {
-        @apply py-2.5 lg:py-4.25! lg:px-7.5! px-6! rounded-[50px]! h-auto! font-semibold hover:bg-card! hover:text-primary! border border-transparent hover:border-primary!;
+        @apply py-2.5! lg:py-4.25! lg:px-7.5! px-6! rounded-[50px]! h-auto! font-semibold hover:bg-card! hover:text-primary! border border-transparent hover:border-primary!;
     }
 
     .app-btn.primary {

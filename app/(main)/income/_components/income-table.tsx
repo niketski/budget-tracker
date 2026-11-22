@@ -1,6 +1,9 @@
 import { Pen, Trash } from "lucide-react"
-
 import { Button } from "@/components/ui/button";
+import prisma from '@/lib/db';
+import { getAllUserIncome } from '@/lib/actions/income';
+import EditIncomeDialog from "./edit-income-dialog";
+import EditIncomeForm from "./edit-income-form";
 
 import {
   Table,
@@ -20,7 +23,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-const IncomeTable = () => {
+const IncomeTable = async ({ userId }: { userId: string }) => {
+    const incomeData = await getAllUserIncome(userId);
+
     return ( 
         <>
             <Table className="rounded-lg overflow-hidden">
@@ -35,6 +40,36 @@ const IncomeTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
+                    {incomeData.data && incomeData?.data.map(income => {
+
+                        // format the amount to PHP currency format
+                        const formattedAmount = new Intl.NumberFormat('en-PH', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                            style: 'currency',
+                            currency: 'PHP',
+                        }).format(income.amount.toNumber());
+
+
+                        return (<TableRow key={income.id}>
+                            <TableCell><span className="inline-block truncate max-w-25">{income.id}</span></TableCell>
+                            <TableCell>{formattedAmount}</TableCell>
+                            <TableCell>{income.name}</TableCell>
+                            <TableCell>John Doe</TableCell>
+                            <TableCell>{income.date.toLocaleDateString('en-US')}</TableCell>
+                            <TableCell>
+                                <EditIncomeDialog>
+                                    <EditIncomeForm incomeData={{
+                                        id: income.id,
+                                        name: income.name,
+                                        amount: income.amount.toString(),
+                                        date: income.date.toString()
+                                    }}/>
+                                </EditIncomeDialog>
+                                <Button variant="ghost" aria-label="Delete"><Trash size={16} color="#008235" /></Button>
+                            </TableCell>
+                        </TableRow>)
+                    })}
                     <TableRow>
                         <TableCell>1</TableCell>
                         <TableCell>Php 50,000.00</TableCell>

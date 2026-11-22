@@ -4,6 +4,7 @@ import { AddIncomeSubmit } from "@/lib/types"
 import { addIncomeSchema } from "../validators";
 import prisma from '@/lib/db';
 import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export async function addIncome(prevState: AddIncomeSubmit, formData: FormData): Promise<AddIncomeSubmit> {
 
@@ -62,6 +63,8 @@ export async function addIncome(prevState: AddIncomeSubmit, formData: FormData):
             }
         });
 
+        revalidatePath('/income');
+
         console.log(prevState);
 
         return {
@@ -104,4 +107,48 @@ export async function addIncome(prevState: AddIncomeSubmit, formData: FormData):
 
     }
 
+}
+
+export async function getAllUserIncome(userId: string) {
+
+    try {
+
+        if(!userId) {
+            
+            throw new Error('User is not authenticated.');
+        }
+
+        const userIncome = await prisma.income.findMany({
+            where: {
+                userId
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        return {
+            data: userIncome,
+            success: true,
+            message: 'Income has been fetched successfully!'
+        }
+
+    } catch(error: unknown) {
+
+        if(error instanceof Error) {
+
+            return {
+                success: false,
+                message: error.message,
+                data: null
+            }
+        }
+
+        return {
+            success: false,
+            message: 'Something went wrong.',
+            data: null
+        }
+
+    }
 }

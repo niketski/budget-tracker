@@ -1,6 +1,7 @@
 import IncomeTable from "./_components/income-table";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { auth } from "@/auth";
 
 import {
   Select,
@@ -32,8 +33,9 @@ const items = [
     { label: "User", value: "user" },
 ];
 
-const IncomePage = () => {
-
+const IncomePage = async () => {
+    const session = await auth();
+    
     return ( 
         <>
             <div className="container">
@@ -52,7 +54,7 @@ const IncomePage = () => {
                             </DialogTrigger>
                             <DialogContent className="px-5 py-10" >
                                 <DialogHeader className="mb-6">
-                                    <DialogTitle className="font-bold text-primary text-2xl font-bold">Add Income</DialogTitle>
+                                    <DialogTitle className="font-bold text-primary text-2xl">Add Income</DialogTitle>
                                     <DialogDescription>
                                         Please add the income details.
                                     </DialogDescription>
@@ -90,7 +92,7 @@ const IncomePage = () => {
                 </div>
 
                 <div className="min-h-72">
-                    <IncomeTable/>
+                    <IncomeTable userId={session?.user?.id as string}/>
                 </div>
             </div>
         </>
